@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="collection" class="com.multicampus.biz.collection.CollectionBean">
+		<property name="addressList">
+			<props>
+				<prop key="둘리">서울시 강남구 대치동</prop>
+				<prop key="또치">서울시 성동구 성수동</prop>
+				<prop key="도우너">서울시 송파구 잠실동</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- <bean id="tv" 
+	      class="polymorphism3.GoogleTV" 
+	      init-method="멤버변수초기화"
+	      destroy-method="자원해제"
+	      lazy-init="false"></bean> 
+		<bean id="tv" class="polymorphism3.SamsungTV">
+			<property name="spearker" ref="speaker"></property>set의 메소드를 호출한다.(규칙)
+			<property name="price" value="1900000"></property>
+			<constructor-arg ref="speaker"/> bean 등록이 있어야한다.
+			<constructor-arg value="1500000"/>
+		</bean>
+		<bean id="speaker" class="polymorphism3.AppleSpeaker"/>먼저 생성된다
+		
+		<bean id="tv" class="polymorphism3.SamsungTV" 
+					p:spearker-ref="speaker" 
+					p:price="1200000"/> 가독성이 떨어지기 때문에 사용 x 권장 
+	-->
+	
+	<!-- 컴포넌트 스캔 설정 (모든 xml 설정을 대체한다.)-->
+	<context:component-scan base-package="polymorphism3"/>
+	
+	<!-- 실제로 사용할  Speaker 타입의 클래스 하나만 등록한다. -->
+	<bean class="polymorphism3.SonySpeaker"/>
+	
+	<!-- 섞어서 사용 권장 (모든것 어노테이션 불가) -->
+</beans>
