@@ -83,12 +83,12 @@ public class User{
 	}
 }
 ```
-		- 장점 : 클라이언트 프로그램이 여러개 있더라도 최소한의 수정으로 변경가능
-		- 단점 : 소스수정의 범위 최소화 가능 but **소스 수정 전혀 안 하기 불가**
-	2. Factory 패턴 이용
-		- 다형성의 단점인 소스 수정 전혀 안 하기 불가를 해결위해서 디자인 패턴 적용
-		- Factory 패턴 이용시 클라이언트에서 사용할 객체 생성을 캡슐화 해서 느슨한 결합상태로 만듬
-		- BeanFactory
+- 장점 : 클라이언트 프로그램이 여러개 있더라도 최소한의 수정으로 변경가능
+- 단점 : 소스수정의 범위 최소화 가능 but **소스 수정 전혀 안 하기 불가**
+2. Factory 패턴 이용
+	- 다형성의 단점인 소스 수정 전혀 안 하기 불가를 해결위해서 디자인 패턴 적용
+	- Factory 패턴 이용시 클라이언트에서 사용할 객체 생성을 캡슐화 해서 느슨한 결합상태로 만듬
+	- BeanFactory
 ``` java
 public class BeanFactory{
 	public Object getBean(String beanName){
@@ -111,12 +111,12 @@ public class User{
 }
 
 ```
-		- 직접 객체 생성 코드를 작성하지 않기 때문에 생성결합 문제 해결 가능 
-	3. Spring IoC 컨테이너
-	 	- 컨테이너는 각 컨테이너가 관리할 객체들을 위한 별도의 XML 설정파일 존재
-	 	- POJO 객체들을 관리하기 위한 별도의 xml 파일 필
-		 	- Servlet Container : web.xml
-		 	- Spring Container : resources/applicationContext.xml
+- 직접 객체 생성 코드를 작성하지 않기 때문에 생성결합 문제 해결 가능 
+3. Spring IoC 컨테이너
+	- 컨테이너는 각 컨테이너가 관리할 객체들을 위한 별도의 XML 설정파일 존재
+	- POJO 객체들을 관리하기 위한 별도의 xml 파일 필
+		- Servlet Container : web.xml
+		- Spring Container : resources/applicationContext.xml
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
 
@@ -131,14 +131,14 @@ public class User{
 	<bean id="coffee" class="com.eunoia.Coffee"/>
 
 ```
-		- `<beans>`: 네임스페이스(xmlns) 와 스키마 문서(schemaLocation)의 위치 선언
-			- 네임스페이스를 통해 스프링 XML 설정파일에서 사용할 엘리먼트와 속성 제한
-			- 새로운 네임스페이스를 등록한다는 것은 전혀 다른 종류의 엘리먼트와 속성 사용 -> 스프링 컨테이너에게 전혀 다른 종류의 기능 처리 지시 의미
-			- `<beans>` 속성 (4개의 태그만 사용 가능)
-				- `<description>`
-				- ` <import>`
-				- `<alias>`
-				- `<bean>`
+- `<beans>`: 네임스페이스(xmlns) 와 스키마 문서(schemaLocation)의 위치 선언
+	- 네임스페이스를 통해 스프링 XML 설정파일에서 사용할 엘리먼트와 속성 제한
+	- 새로운 네임스페이스를 등록한다는 것은 전혀 다른 종류의 엘리먼트와 속성 사용 -> 스프링 컨테이너에게 전혀 다른 종류의 기능 처리 지시 의미
+	- `<beans>` 속성 (4개의 태그만 사용 가능)
+		- `<description>`
+		- ` <import>`
+		- `<alias>`
+		- `<bean>`
 ``` java
 public class User{
 	public static void main(String[] args){
@@ -152,21 +152,22 @@ public class User{
 	}
 }	
 ```
-		- 동작 과정
-			1. 클라이언트가 스프링 설정 파일(XML) 로딩해 컨테이너 구동  
-			2. 컨테이너는 스프링 설정 파일에 <bean> 등록 객체 찾아 생성
-			3. getBean() 메소드로 ID와 대조해 객체 요청(LookUp) 한다.
-			4. Id의 객체 반환한다.
-			- 스프림 설정 파일(XML)에서 객체를 변경하여 비즈니스 소스를 수정하지 않아도 된다.(유지보수 업업)
-		- Spring 컨테이너의 종류
-			- 가장 많이 사용하는 두 개의 클래스(ApplicationContext 인터페이스 구현)
-			- GenericXmlApplicationContext 
-				-  클라이언트가 직정 객체 생성 및 구동 컨테이너
-			- WmlWebApplicationContext 
-			- 웹 애플리케이션 개발에 사용, 직접 생성하여 사용하지 않는 컨테이너
-	- 정리 
-		- 순제어 : 비즈니스 로직에서 VO를 new 사용 -> 유지보수 어렵
-		- 역제어 : 비즈니스 로직에 new 존재 x  -> xml 참조해서 Container가 생성 후 반환
+
+- 동작 과정
+	1. 클라이언트가 스프링 설정 파일(XML) 로딩해 컨테이너 구동  
+	2. 컨테이너는 스프링 설정 파일에 <bean> 등록 객체 찾아 생성
+	3. getBean() 메소드로 ID와 대조해 객체 요청(LookUp) 한다.
+	4. Id의 객체 반환한다.
+	- 스프림 설정 파일(XML)에서 객체를 변경하여 비즈니스 소스를 수정하지 않아도 된다.(유지보수 업업)
+- Spring 컨테이너의 종류
+	- 가장 많이 사용하는 두 개의 클래스(ApplicationContext 인터페이스 구현)
+	- GenericXmlApplicationContext 
+		-  클라이언트가 직정 객체 생성 및 구동 컨테이너
+	- WmlWebApplicationContext 
+	- 웹 애플리케이션 개발에 사용, 직접 생성하여 사용하지 않는 컨테이너
+- 정리 
+	- 순제어 : 비즈니스 로직에서 VO를 new 사용 -> 유지보수 어렵
+	- 역제어 : 비즈니스 로직에 new 존재 x  -> xml 참조해서 Container가 생성 후 반환
 ### Spring 설정 파일(XML)
 1. 스프링 설정 파일
 - 스프링 XML(Bean 저장소) 설정 파일 통해 스프링 컨테이너 동작 제어 가능
@@ -180,6 +181,7 @@ public class User{
 			- 지정하지 않으면 **패키지 경로 + 클래스 이름 +#0** 자동 생성
 			- unique 하고 자바 식별자 작성 규칙 적용
 	- `<bean id="coffee" class="com.eunoia.Coffee" init-method='멤버변수초기화' destroy-method='자원해제' lazy-init=/>`
+	
 ``` java
 public class Coffee implements Drink{
 	int cnt;
@@ -203,6 +205,7 @@ public class User{
 	}
 }
 ```
+
 - init-method 
 	- Container 객체 생성 시 디폴트 생성자 호출(없으면 error) -> 객체에 대한 초기화 작업 처리 별도의 메소드 필요하기 떄문에 init-method에 지정
 - destroy-method
